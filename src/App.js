@@ -12,7 +12,7 @@ function App() {
       .get('/api/hello')
       .then((response) => setHello(response.data))
       .catch((error) => console.log(error));
-  }, []);
+  }, [hello]);
 
   return (
     <div className='App'>
