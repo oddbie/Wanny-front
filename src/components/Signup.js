@@ -5,15 +5,41 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import validator from 'validator';
 
 const Signup = () => {
+  const emailCompareError = 'The email and confirmation email does not match.';
+  const validEmailError = 'Email is not valid';
+
   const [email, setEmail] = useState('');
   const [emailVerify, setEmailVerify] = useState('');
   const [pwd, setPwd] = useState('');
 
+  const [validEmail, setValidEmail] = useState(true);
+  const [emailMatched, setEmailMatched] = useState(true);
+
+  const isValidEmail = (email) => {
+    if (email === '' || validator.isEmail(email)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   useEffect(() => {
-    console.log(email, emailVerify, pwd);
-  }, [email, emailVerify, pwd]);
+    console.log('verifying', email + ' ' + emailVerify);
+    if (
+      emailVerify === '' ||
+      !validEmail ||
+      (email !== '' && emailVerify !== '' && email === emailVerify)
+    ) {
+      console.log('email match');
+      setEmailMatched(true);
+    } else {
+      console.log('email not match');
+      setEmailMatched(false);
+    }
+  }, [emailVerify]);
 
   const addUser = async () => {
     await axios
@@ -36,20 +62,31 @@ const Signup = () => {
         <Box sx={{ width: 300, height: 450, p: 2, border: 1 }}>
           <div>
             <TextField
+              error={!validEmail}
               margin='normal'
               required
               id='e-mail'
               label='Email'
-              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              onChange={(e) => {
+                setValidEmail(isValidEmail(e.target.value));
+                setEmail(e.target.value);
+              }}
+              helperText={!validEmail ? validEmailError : ''}
             />
           </div>
           <div>
             <TextField
+              error={!emailMatched}
               margin='normal'
               required
               id='e-mail-verify'
               label='Email-verify'
-              onChange={(e) => setEmailVerify(e.target.value)}
+              value={emailVerify}
+              onChange={(e) => {
+                setEmailVerify(e.target.value);
+              }}
+              helperText={!emailMatched ? emailCompareError : ''}
             />
           </div>
           <div>
@@ -65,6 +102,7 @@ const Signup = () => {
           <div>
             <Button
               variant='contained'
+              disabled={!validEmail || !emailMatched}
               sx={{ width: 150, marginTop: 3 }}
               onClick={addUser}
             >
