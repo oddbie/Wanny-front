@@ -1,5 +1,6 @@
 import React from 'react';
-import PageRoute from './PageRoute';
+import PageRoute from './components/PageRoute';
+import './App.css';
 
 function App() {
   return (
