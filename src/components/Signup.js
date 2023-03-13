@@ -43,7 +43,7 @@ const Signup = () => {
 
   const addUser = async () => {
     await axios
-      .post('/api/member/register', {
+      .post('/api/auth/signup', {
         email: email,
         pw: pwd,
       })

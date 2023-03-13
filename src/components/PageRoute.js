@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from '../Header';
 import Hello from '../Hello';
-import Todo from '../Todo';
+import Todo from './Todo';
 import Footer from '../Footer';
 import NotFound from '../NotFound';
 import Login from './Login';

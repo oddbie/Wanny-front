@@ -13,7 +13,7 @@ const Login = () => {
 
   const loginAction = async () => {
     await axios
-      .post('/api/member/login', {
+      .post('/api/auth/login', {
         email: email,
         pw: pw,
       })
