@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import axios from 'axios';
 import { Button, TextField } from '@mui/material';
+import TodoItem from './TodoItem';
 
 function Todo() {
   const [todos, setTodos] = useState([]);
@@ -84,6 +85,11 @@ function Todo() {
       </div>
       <div>
         <Button onClick={loadTodoList}>Load Todo List</Button>
+      </div>
+      <div>
+        {todos.map((row, idx) => {
+          return TodoItem(row);
+        })}
       </div>
     </div>
   );
